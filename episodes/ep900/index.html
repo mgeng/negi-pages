@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>葱。#900 休日のはなし</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f8f8f4;
+      color: #222;
+      font-family: sans-serif;
+    }
+
+    header {
+      padding: 24px 16px 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      background: #fff;
+    }
+    header .series { font-size: 13px; color: #888; margin-bottom: 4px; }
+    header h1 { font-size: 20px; font-weight: bold; }
+
+    .viewer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 0 80px;
+    }
+
+    .cut {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* margin-after per cut (px values from wbtn, scaled to viewer width) */
+    .cut[data-cut="c001"] { margin-bottom: 200px; }
+    .cut[data-cut="c002"] { margin-bottom: 300px; }
+    .cut[data-cut="c003"] { margin-bottom: 250px; }
+    .cut[data-cut="c004"] { margin-bottom: 350px; }
+    .cut[data-cut="c005"] { margin-bottom: 150px; }
+    .cut[data-cut="c006"] { margin-bottom: 400px; }
+    .cut[data-cut="c007"] { margin-bottom: 700px; }
+    .cut[data-cut="c008"] { margin-bottom: 400px; }
+
+    nav {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      text-align: center;
+    }
+    nav a {
+      color: #555;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+    }
+    nav a:hover { color: #000; border-color: #000; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="series">葱。</div>
+    <h1>#900 休日のはなし</h1>
+  </header>
+
+  <main class="viewer">
+    <img class="cut" data-cut="c001" src="images/c001.webp" alt="" loading="eager" decoding="async">
+    <img class="cut" data-cut="c002" src="images/c002.webp" alt="" loading="lazy" decoding="async">
+    <img class="cut" data-cut="c003" src="images/c003.webp" alt="" loading="lazy" decoding="async">
+    <img class="cut" data-cut="c004" src="images/c004.webp" alt="" loading="lazy" decoding="async">
+    <img class="cut" data-cut="c005" src="images/c005.webp" alt="" loading="lazy" decoding="async">
+    <img class="cut" data-cut="c006" src="images/c006.webp" alt="" loading="lazy" decoding="async">
+    <img class="cut" data-cut="c007" src="images/c007.webp" alt="" loading="lazy" decoding="async">
+    <img class="cut" data-cut="c008" src="images/c008.webp" alt="" loading="lazy" decoding="async">
+  </main>
+
+  <nav>
+    <a href="../../index.html">← エピソード一覧へ</a>
+  </nav>
+</body>
+</html>

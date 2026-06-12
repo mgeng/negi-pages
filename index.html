@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>葱。</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f8f8f4;
+      color: #222;
+      font-family: sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 48px 16px 24px;
+      text-align: center;
+    }
+    header h1 { font-size: 32px; font-weight: bold; letter-spacing: 0.05em; }
+    header p  { margin-top: 8px; font-size: 13px; color: #888; }
+
+    .episode-list {
+      max-width: 480px;
+      margin: 40px auto 80px;
+      padding: 0 16px;
+      list-style: none;
+    }
+
+    .episode-list li + li { margin-top: 1px; }
+
+    .episode-list a {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 18px 20px;
+      background: #fff;
+      text-decoration: none;
+      color: #222;
+      border: 1px solid #e8e8e4;
+      transition: background 0.1s;
+    }
+    .episode-list a:hover { background: #f0f0ec; }
+
+    .episode-list .num  { font-size: 13px; color: #999; min-width: 3em; }
+    .episode-list .title { font-size: 16px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>葱。</h1>
+    <p>縦スクロール webtoon</p>
+  </header>
+
+  <ul class="episode-list">
+    <li>
+      <a href="episodes/ep900/index.html">
+        <span class="num">#900</span>
+        <span class="title">休日のはなし</span>
+      </a>
+    </li>
+  </ul>
+</body>
+</html>
