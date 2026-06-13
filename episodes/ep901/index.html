@@ -91,22 +91,21 @@
       justify-content: center;
     }
 
-    /* Vertical text inside bubbles */
+    /* Horizontal text inside bubbles */
     .bubble .text {
-      writing-mode: vertical-rl;
-      text-orientation: upright;
-      line-height: 1.5;
-      white-space: nowrap;
+      line-height: 1.35;
+      text-align: center;
     }
 
     /* ---- narration: rectangular caption box, no tail ---- */
     .bubble-narration {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.93);
       border: 2px solid #444;
       border-radius: 6px;
-      padding: 14px 18px;
+      padding: 16px 20px;
       font-family: "GenEiAntique", sans-serif;
-      font-size: 26px;
+      font-size: 25px;
+      max-width: 320px;
     }
 
     /* ---- normal: white oval + solid border + triangle tail ---- */
@@ -167,9 +166,12 @@
     .bubble-shout {
       background: #fff;
       font-family: "ChikaraDzuyoku", sans-serif;
-      font-size: 40px;
+      font-size: 38px;
       font-weight: bold;
-      padding: 28px 24px;
+      padding: 64px 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       /* 20-point explosion star */
       clip-path: polygon(
         50%  0%,  59%  16%, 73%  5%,  74%  23%,
@@ -189,9 +191,10 @@
       border: 2.5px solid #111;
       /* irregular blob */
       border-radius: 62% 68% 70% 60% / 58% 65% 62% 70%;
-      padding: 22px 18px;
+      padding: 30px 34px;
       font-family: "GenEiAntique", sans-serif;
-      font-size: 26px;
+      font-size: 32px;
+      max-width: 300px;
     }
     /* two small circles for the cloud-tail */
     .bubble-thought::after {
@@ -223,12 +226,13 @@
 
     /* ---- whisper: dashed oval, smaller, slightly transparent ---- */
     .bubble-whisper {
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       border: 2px dashed #555;
       border-radius: 50%;
-      padding: 16px 12px;
+      padding: 24px 28px;
       font-family: "GenEiAntique", sans-serif;
-      font-size: 22px;
+      font-size: 25px;
+      max-width: 260px;
     }
     .bubble-whisper::after {
       content: "";
@@ -294,7 +298,7 @@
     <div class="panel" data-cut="c003">
       <img src="images/c003.webp" alt="" loading="lazy" decoding="async">
       <div class="bubble bubble-shout"
-           style="top: 2%; left: -2%; width: 210px; height: 210px;">
+           style="top: 5%; left: 1%; width: 300px; height: 300px;">
         <span class="text">こんな時間に！？</span>
       </div>
     </div>
@@ -314,12 +318,12 @@
       </div>
     </div>
 
-    <!-- c006: whisper「3分どころじゃなかった……」reserved_space=top-left. FX=speed_lines.
-         → dashed bubble at top-left, tail toward right (char center), left:-2% -->
+    <!-- c006: monologue「3分どころじゃなかった……」reserved_space=top-left.
+         → narration caption box (モノローグ), no tail -->
     <div class="panel" data-cut="c006">
       <img src="images/c006.webp" alt="" loading="lazy" decoding="async">
-      <div class="bubble bubble-whisper tail-right"
-           style="top: 3%; left: -2%;">
+      <div class="bubble bubble-narration"
+           style="top: 5%; left: 3%;">
         <span class="text">3分どころじゃなかった……</span>
       </div>
     </div>
@@ -334,7 +338,7 @@
     <div class="panel" data-cut="c008">
       <img src="images/c008.webp" alt="" loading="lazy" decoding="async">
       <div class="bubble bubble-whisper tail-right"
-           style="top: 4%; left: -2%;">
+           style="top: 6%; left: 10%;">
         <span class="text">……まあ、麺は麺</span>
       </div>
     </div>
