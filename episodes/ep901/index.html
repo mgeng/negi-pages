@@ -3,26 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>葱。#901 テスト・ヌードル</title>
+  <title>葱。#901 深夜の3分</title>
 
   <!-- OGP / Twitter Card -->
   <meta property="og:type"        content="article">
   <meta property="og:url"         content="https://mgeng.github.io/negi-pages/episodes/ep901/index.html">
-  <meta property="og:title"       content="葱。#901 テスト・ヌードル">
+  <meta property="og:title"       content="葱。#901 深夜の3分">
   <meta property="og:description" content="縦スクロールwebtoon「葱。」第901話">
   <meta property="og:image"       content="https://mgeng.github.io/negi-pages/episodes/ep901/images/ogp.jpg">
   <meta property="og:site_name"   content="葱。">
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="葱。#901 テスト・ヌードル">
+  <meta name="twitter:title"       content="葱。#901 深夜の3分">
   <meta name="twitter:description" content="縦スクロールwebtoon「葱。」第901話">
   <meta name="twitter:image"       content="https://mgeng.github.io/negi-pages/episodes/ep901/images/ogp.jpg">
+
   <style>
+    @font-face {
+      font-family: "GenEiAntique";
+      src: url("../../assets/fonts/GenEiAntiquePv6-M.ttf") format("truetype");
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: "ChikaraDzuyoku";
+      src: url("../../assets/fonts/851CHIKARA-DZUYOKU_kanaA_004.ttf") format("truetype");
+      font-weight: bold;
+      font-style: normal;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: #f8f8f4;
       color: #222;
-      font-family: sans-serif;
+      font-family: "GenEiAntique", sans-serif;
     }
 
     header {
@@ -38,23 +52,203 @@
       max-width: 720px;
       margin: 0 auto;
       padding: 40px 0 80px;
+      /* panels may overflow horizontally for bubble bleed */
+      overflow-x: visible;
     }
 
-    .cut {
+    /* Panel wrapper — position:relative so bubbles can be absolute inside;
+       overflow:visible so bubbles can bleed past the edge */
+    .panel {
+      position: relative;
+      width: 100%;
+      overflow: visible;
+    }
+
+    .panel img {
       display: block;
       width: 100%;
       height: auto;
     }
 
-    /* margin-after per cut (px values from wbtn) */
-    .cut[data-cut="c001"] { margin-bottom: 200px; }
-    .cut[data-cut="c002"] { margin-bottom: 200px; }
-    .cut[data-cut="c003"] { margin-bottom: 300px; }
-    .cut[data-cut="c004"] { margin-bottom: 350px; }
-    .cut[data-cut="c005"] { margin-bottom: 250px; }
-    .cut[data-cut="c006"] { margin-bottom: 400px; }
-    .cut[data-cut="c007"] { margin-bottom: 600px; }
-    .cut[data-cut="c008"] { margin-bottom: 800px; }
+    /* margin-after per panel from wbtn */
+    .panel[data-cut="c001"] { margin-bottom: 200px; }
+    .panel[data-cut="c002"] { margin-bottom: 200px; }
+    .panel[data-cut="c003"] { margin-bottom: 300px; }
+    .panel[data-cut="c004"] { margin-bottom: 350px; }
+    .panel[data-cut="c005"] { margin-bottom: 250px; }
+    .panel[data-cut="c006"] { margin-bottom: 400px; }
+    .panel[data-cut="c007"] { margin-bottom: 600px; }
+    .panel[data-cut="c008"] { margin-bottom: 800px; }
+
+    /* ============================================================
+       Bubble base
+       ============================================================ */
+    .bubble {
+      position: absolute;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Vertical text inside bubbles */
+    .bubble .text {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    /* ---- narration: rectangular caption box, no tail ---- */
+    .bubble-narration {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid #444;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: "GenEiAntique", sans-serif;
+      font-size: 26px;
+    }
+
+    /* ---- normal: white oval + solid border + triangle tail ---- */
+    .bubble-normal {
+      background: #fff;
+      border: 2.5px solid #111;
+      border-radius: 50%;
+      padding: 20px 16px;
+      font-family: "GenEiAntique", sans-serif;
+      font-size: 28px;
+    }
+    /* tail pointing down-right (for top-left bubble, char on right) */
+    .bubble-normal.tail-right::after,
+    .bubble-normal.tail-right::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    .bubble-normal.tail-right::after {
+      bottom: -24px;
+      right: 18%;
+      border-width: 24px 15px 0 15px;
+      border-color: #111 transparent transparent transparent;
+    }
+    .bubble-normal.tail-right::before {
+      bottom: -21px;
+      right: calc(18% + 3px);
+      border-width: 21px 12px 0 12px;
+      border-color: #fff transparent transparent transparent;
+      z-index: 1;
+    }
+    /* tail pointing down-left (for top-right bubble, char on left) */
+    .bubble-normal.tail-left::after,
+    .bubble-normal.tail-left::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    .bubble-normal.tail-left::after {
+      bottom: -24px;
+      left: 18%;
+      border-width: 24px 15px 0 15px;
+      border-color: #111 transparent transparent transparent;
+    }
+    .bubble-normal.tail-left::before {
+      bottom: -21px;
+      left: calc(18% + 3px);
+      border-width: 21px 12px 0 12px;
+      border-color: #fff transparent transparent transparent;
+      z-index: 1;
+    }
+
+    /* ---- shout: spiky explosion shape via clip-path ---- */
+    .bubble-shout {
+      background: #fff;
+      font-family: "ChikaraDzuyoku", sans-serif;
+      font-size: 40px;
+      font-weight: bold;
+      padding: 28px 24px;
+      /* 20-point explosion star */
+      clip-path: polygon(
+        50%  0%,  59%  16%, 73%  5%,  74%  23%,
+        91%  18%, 87%  36%, 100% 38%, 90%  52%,
+        100% 64%, 85%  65%, 88%  82%, 72%  77%,
+        74%  95%, 58%  86%, 50% 100%, 42%  86%,
+        26%  95%, 28%  77%, 12%  82%, 15%  65%,
+        0%   64%, 10%  52%, 0%   38%, 13%  36%,
+        9%   18%, 26%  23%, 27%   5%, 41%  16%
+      );
+      filter: drop-shadow(0 0 3px #111);
+    }
+
+    /* ---- thought: blob shape + small circle dots for tail ---- */
+    .bubble-thought {
+      background: #fff;
+      border: 2.5px solid #111;
+      /* irregular blob */
+      border-radius: 62% 68% 70% 60% / 58% 65% 62% 70%;
+      padding: 22px 18px;
+      font-family: "GenEiAntique", sans-serif;
+      font-size: 26px;
+    }
+    /* two small circles for the cloud-tail */
+    .bubble-thought::after {
+      content: "";
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      background: #fff;
+      border: 2px solid #111;
+      border-radius: 50%;
+      bottom: -22px;
+    }
+    .bubble-thought::before {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border: 2px solid #111;
+      border-radius: 50%;
+      bottom: -34px;
+    }
+    /* tail direction: toward character (center/right for top-right bubble) */
+    .bubble-thought.tail-left::after  { left: 22%; }
+    .bubble-thought.tail-left::before { left: calc(22% + 2px); }
+    /* toward character (center/left for top-left bubble) */
+    .bubble-thought.tail-right::after  { right: 22%; }
+    .bubble-thought.tail-right::before { right: calc(22% + 2px); }
+
+    /* ---- whisper: dashed oval, smaller, slightly transparent ---- */
+    .bubble-whisper {
+      background: rgba(255, 255, 255, 0.88);
+      border: 2px dashed #555;
+      border-radius: 50%;
+      padding: 16px 12px;
+      font-family: "GenEiAntique", sans-serif;
+      font-size: 22px;
+    }
+    .bubble-whisper::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+    .bubble-whisper.tail-right::after {
+      bottom: -18px;
+      right: 22%;
+      border-width: 18px 11px 0 11px;
+      border-color: #555 transparent transparent transparent;
+    }
+    .bubble-whisper.tail-left::after {
+      bottom: -18px;
+      left: 22%;
+      border-width: 18px 11px 0 11px;
+      border-color: #555 transparent transparent transparent;
+    }
 
     nav {
       max-width: 720px;
@@ -75,18 +269,76 @@
 <body>
   <header>
     <div class="series">葱。</div>
-    <h1>#901 テスト・ヌードル</h1>
+    <h1>#901 深夜の3分</h1>
   </header>
 
   <main class="viewer">
-    <img class="cut" data-cut="c001" src="images/c001.webp" alt="" loading="eager" decoding="async">
-    <img class="cut" data-cut="c002" src="images/c002.webp" alt="" loading="lazy" decoding="async">
-    <img class="cut" data-cut="c003" src="images/c003.webp" alt="" loading="lazy" decoding="async">
-    <img class="cut" data-cut="c004" src="images/c004.webp" alt="" loading="lazy" decoding="async">
-    <img class="cut" data-cut="c005" src="images/c005.webp" alt="" loading="lazy" decoding="async">
-    <img class="cut" data-cut="c006" src="images/c006.webp" alt="" loading="lazy" decoding="async">
-    <img class="cut" data-cut="c007" src="images/c007.webp" alt="" loading="lazy" decoding="async">
-    <img class="cut" data-cut="c008" src="images/c008.webp" alt="" loading="lazy" decoding="async">
+
+    <!-- c001: no dialogue. reserved_space=top-left. -->
+    <div class="panel" data-cut="c001">
+      <img src="images/c001.webp" alt="" loading="eager" decoding="async">
+    </div>
+
+    <!-- c002: narration「3分。ただ待つだけの簡単な仕事」reserved_space=top-right
+         → bubble at top-right, intentionally a bit outside (right:-2%) -->
+    <div class="panel" data-cut="c002">
+      <img src="images/c002.webp" alt="" loading="lazy" decoding="async">
+      <div class="bubble bubble-narration"
+           style="top: 3%; right: -2%;">
+        <span class="text">3分。ただ待つだけの簡単な仕事</span>
+      </div>
+    </div>
+
+    <!-- c003: shout「こんな時間に！？」reserved_space=top-left. FX=focus_lines.
+         → spiky bubble at top-left, bleeding outside (left:-2%) -->
+    <div class="panel" data-cut="c003">
+      <img src="images/c003.webp" alt="" loading="lazy" decoding="async">
+      <div class="bubble bubble-shout"
+           style="top: 2%; left: -2%; width: 210px; height: 210px;">
+        <span class="text">こんな時間に！？</span>
+      </div>
+    </div>
+
+    <!-- c004: chat image (LINE screen). No bubble. -->
+    <div class="panel" data-cut="c004">
+      <img src="images/c004.webp" alt="" loading="lazy" decoding="async">
+    </div>
+
+    <!-- c005: thought「麺が、伸びる」reserved_space=top-right. FX=sweat.
+         → blob bubble at top-right, tail toward left (character center), right:-2% -->
+    <div class="panel" data-cut="c005">
+      <img src="images/c005.webp" alt="" loading="lazy" decoding="async">
+      <div class="bubble bubble-thought tail-left"
+           style="top: 3%; right: -2%;">
+        <span class="text">麺が、伸びる</span>
+      </div>
+    </div>
+
+    <!-- c006: whisper「3分どころじゃなかった……」reserved_space=top-left. FX=speed_lines.
+         → dashed bubble at top-left, tail toward right (char center), left:-2% -->
+    <div class="panel" data-cut="c006">
+      <img src="images/c006.webp" alt="" loading="lazy" decoding="async">
+      <div class="bubble bubble-whisper tail-right"
+           style="top: 3%; left: -2%;">
+        <span class="text">3分どころじゃなかった……</span>
+      </div>
+    </div>
+
+    <!-- c007: no dialogue. FX=screen_tone. reserved_space=top-left. -->
+    <div class="panel" data-cut="c007">
+      <img src="images/c007.webp" alt="" loading="lazy" decoding="async">
+    </div>
+
+    <!-- c008: whisper「……まあ、麺は麺」reserved_space=top-left.
+         → dashed bubble at top-left, tail toward right, left:-2% -->
+    <div class="panel" data-cut="c008">
+      <img src="images/c008.webp" alt="" loading="lazy" decoding="async">
+      <div class="bubble bubble-whisper tail-right"
+           style="top: 4%; left: -2%;">
+        <span class="text">……まあ、麺は麺</span>
+      </div>
+    </div>
+
   </main>
 
   <nav>
